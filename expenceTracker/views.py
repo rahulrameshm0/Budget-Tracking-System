@@ -31,6 +31,9 @@ def sign_up(request):
         if password != confirm_password:
             messages.error(request, 'Password does not match!')
             return redirect('sign_up')
+        if len(password) < 5:
+            messages.error(request, 'password should include atleast 4 charctors')
+            return redirect('sign_up')
 
         create_account = User.objects.create_user(username=username, email=email, password=password)
         create_account.save()
