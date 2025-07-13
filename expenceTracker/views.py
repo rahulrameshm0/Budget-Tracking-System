@@ -6,10 +6,10 @@ from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 def sign_in(request):
     if request.method == "POST":
-        uesername = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(uesername=uesername,password=password)
+        user = authenticate(username=username,password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
