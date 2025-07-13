@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Transactions</title>
+</head>
+<body>
+    <div class="edit">
+        <div class="transations">
+            {% if edit-transaction %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="transations" id="transations" placeholder="transations" required value="{{edit-transaction.transations}}">
+                <input type="number" name="amount" id="amount" placeholder="amount" required value="{{edit-transaction.amount}}">
+                <input type="date" name="date" id="date" placeholder="date" required value="{{edit-transaction.date}}">
+                <button type="submit">Edit</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from . models import Transactions
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 # Create your views here.
@@ -45,3 +46,18 @@ def sign_up(request):
 def sign_out(request):
     login(request)
     return redirect('sign_in')
+
+def edit_transactions(request, id):
+    error_handle = get_object_or_404(Transactions, id=id)
+    if request.method == "POST":
+        transactions = request.POST.get('transactions')
+        amount  = request.POST.get('amount')
+        date = request.POST.get('date')
+
+        error_handle.transaction = transactions
+        error_handle.amount = amount
+        error_handle.date = date
+
+        error_handle.save()
+        return redirect('home')
+    return render(request, 'edit.transaction.html', {'edit-transaction':error_handle})
