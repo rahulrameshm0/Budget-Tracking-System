@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login,logout
 def sign_in(request):
     if request.method == "POST":
         uesername = request.POST.get('username')
-        password = request.POST.get('passsword')
+        password = request.POST.get('password')
 
         user = authenticate(uesername=uesername,password=password)
         if user is not None:
@@ -67,4 +67,4 @@ def edit_transactions(request, id):
 
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
-    return render(request, 'home-page.html', {'home':homepage})x
+    return render(request, 'home-page.html', {'home':homepage})
