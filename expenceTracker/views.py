@@ -43,5 +43,5 @@ def sign_up(request):
     
 
 def sign_out(request):
-    login(request)
+    logout(request)
     return redirect('sign_in')

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Transactions</title>
+</head>
+<body>
+    <div class="edit">
+        <div class="transations">
+            <form action="{{% url 'edit' i.id %}}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="edit" id="edit" placeholder="edit" required>
+                <input type="text" name="delete" id="delete" placeholder="delete" required>
+                <button type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
