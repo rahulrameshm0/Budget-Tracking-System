@@ -61,3 +61,7 @@ def edit_transactions(request, id):
         error_handle.save()
         return redirect('home')
     return render(request, 'edit.transaction.html', {'edit-transaction':error_handle})
+
+def home_page(request):
+    homepage = Transactions.objects.filter(user = request.user)
+    return render(request, 'home-page.html', {'home':homepage})x
