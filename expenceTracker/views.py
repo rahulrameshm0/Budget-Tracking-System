@@ -5,15 +5,18 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 def sign_in(request):
-    uesername = request.POST.get('username')
-    password = request.POST.get('passsword')
+    if request.method == "POST":
+        uesername = request.POST.get('username')
+        password = request.POST.get('passsword')
 
-    user = authenticate(uesername=uesername,password=password)
-    if user is not None:
-        login(request, user)
-        messages.error(request, 'username or password is incorrect!')
-        return redirect('home')
-    
+        user = authenticate(uesername=uesername,password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'username or password is incorrect!')
+            return redirect('sign_in')
+        
     return render(request, 'login.html')
     
 def sign_up(request):
@@ -33,7 +36,7 @@ def sign_up(request):
             messages.error(request, 'Password does not match!')
             return redirect('sign_up')
         if len(password) < 5:
-            messages.error(request, 'password should include atleast 4 charctors')
+            messages.error(request, 'password should include more than five letters!')
             return redirect('sign_up')
 
         create_account = User.objects.create_user(username=username, email=email, password=password)
@@ -44,7 +47,7 @@ def sign_up(request):
     
 
 def sign_out(request):
-    login(request)
+    logout(request)
     return redirect('sign_in')
 
 def edit_transactions(request, id):
