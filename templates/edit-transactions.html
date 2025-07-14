@@ -8,12 +8,14 @@
 <body>
     <div class="edit">
         <div class="transations">
-            {% if edit-transaction %}
+            <h1>Edit</h1>
+            {% if edit_transaction %}
             <form action="" method="POST">
                 {% csrf_token %}
-                <input type="text" name="transations" id="transations" placeholder="transations" required value="{{edit-transaction.transations}}">
-                <input type="number" name="amount" id="amount" placeholder="amount" required value="{{edit-transaction.amount}}">
-                <input type="date" name="date" id="date" placeholder="date" required value="{{edit-transaction.date}}">
+                <input type="text" name="title" id="transactions" placeholder="Title" required value="{{edit_transaction.title}}">
+                <input type="number" name="amount" id="amount" placeholder="Amount" required value="{{edit_transaction.amount}}">
+                <input type="date" name="date" id="date" placeholder="Date" required value="{{edit_transaction.date|date:'Y-m-d'}}">
+                <input type="text" name="description" id="description" placeholder="Description" required value="{{edit_transaction.description}}">
                 <button type="submit">Edit</button>
             </form>
             {% endif %}

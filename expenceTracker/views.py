@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from . models import Transactions
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def sign_in(request):
     if request.method == "POST":
@@ -53,18 +54,41 @@ def sign_out(request):
 def edit_transactions(request, id):
     error_handle = get_object_or_404(Transactions, id=id)
     if request.method == "POST":
-        transactions = request.POST.get('transactions')
+        title = request.POST.get('title')
         amount  = request.POST.get('amount')
         date = request.POST.get('date')
+        description = request.POST.get('description')
 
-        error_handle.transaction = transactions
+        error_handle.transaction = title
         error_handle.amount = amount
         error_handle.date = date
+        error_handle.description = description
 
         error_handle.save()
         return redirect('home')
-    return render(request, 'edit.transaction.html', {'edit-transaction':error_handle})
+    return render(request, 'edit-transactions.html', {'edit_transaction':error_handle})
 
+def add_transactions(request):
+    if request.method == "POST":
+        try:
+            category =  request.POST['category']
+            amount = request.POST['amount']
+            date = request.POST['date']
+            title = request.POST['title']
+            new_transaction = Transactions(
+                user = request.user,
+                title = title,
+                category = category,
+                amount = amount,
+                date = date
+            )
+            new_transaction.save()
+            return redirect('home')
+        except (ValueError, KeyError):
+            messages.error(request, 'please enter valid date format')
+            return redirect('home')
+
+@login_required(login_url='login')
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
     return render(request, 'home-page.html', {'home':homepage})
