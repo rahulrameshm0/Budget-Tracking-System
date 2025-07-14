@@ -87,6 +87,11 @@ def add_transactions(request):
         except (ValueError, KeyError):
             messages.error(request, 'please enter valid date format')
             return redirect('home')
+        
+def delete_form(request, id):
+    delete_item = Transactions.objects.get(id=id)
+    delete_item.delete()
+    return redirect('home')
 
 @login_required(login_url='login')
 def home_page(request):

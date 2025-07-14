@@ -113,6 +113,7 @@
                     <span>{{i.category}}</span>
                     <span>{{i.amount}}</span>
                     <a href="{% url 'edit' i.id %}">Edit</a>
+                    <a href="{% url 'delete' i.id %}">Delete</a>
                     <p>{{i.date}}</p>
                 </div>
                     {% endfor %}
