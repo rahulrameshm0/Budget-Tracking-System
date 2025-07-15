@@ -1,18 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
+
 <body>
     <nav>
         <div class="navbar">
+            <div class="navbar-brand">Budget Tracker</div>
             <div class="user-profile">
                 <a href="#">
-                    <img src="{% static 'images/profile.webp' %}" alt="profile-img">
-                    <span><a href="#">default</a></span>
+                    <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">
+                    <span>Sarah Johnson</span>
                 </a>
             </div>
         </div>
@@ -20,7 +23,7 @@
 
     <main>
         <section class="section-1">
-           <div class="summary-cards">
+            <div class="summary-cards">
                 <div class="card">
                     <h1>total income</h1>
                     <span class="amount">1</span>
@@ -30,14 +33,14 @@
                     <h1>total expence</h1>
                     <span class="amount">2</span>
                 </div>
-                
+
                 <div class="card">
                     <h1>balance</h1>
                     <span class="amount">3</span>
                 </div>
             </div>
         </section>
-        
+
         <aside>
             <h2>Add Transactions</h2>
             <div class="add-transaction">
@@ -50,10 +53,10 @@
                         <option value="Expense">E</option>
                         <option value="Income">I</option>
                     </select>
-                    
+
                     <label for="">Amount</label>
                     <input type="number" name="amount" id="amount" placeholder="0.00" required>
-                    
+
                     <label for="">Category</label>
                     <select name="category" id="category">
                         <option value="Food & Dining">Food & Dining</option>
@@ -67,18 +70,18 @@
                         <option value="Investment">Investment</option>
                         <!-- <option value=""></option> -->
                     </select>
-                    
+
                     <label for="">Date</label>
                     <input type="date" name="date" id="date" placeholder="Date" required>
-                    
+
                     <label for="">Description</label>
                     <textarea name="description" id="description" placeholder="Optional note..."></textarea>
-                    
+
                     <button type="submit">Add Transaction</button>
                 </form>
             </div>
         </aside>
-        
+
         <section class="section-2">
             <div class="transaction-lists">
                 <h2>Recent Transactions</h2>
@@ -105,21 +108,22 @@
                     </select>
                 </span>
             </div>
-           
+
             {% if home %}
-                {% for i in home %}
-                <div class="transaction-item">
-                    <h3>{{i.title}}</h3>
-                    <span>{{i.category}}</span>
-                    <span>{{i.amount}}</span>
-                    <a href="{% url 'edit' i.id %}">Edit</a>
-                    <p>{{i.date}}</p>
-                </div>
-                    {% endfor %}
+            {% for i in home %}
+            <div class="transaction-item">
+                <h3>{{i.title}}</h3>
+                <span>{{i.category}}</span>
+                <span>{{i.amount}}</span>
+                <a href="{% url 'edit' i.id %}">Edit</a>
+                <p>{{i.date}}</p>
+            </div>
+            {% endfor %}
             {% else %}
-                <p>No transactions found</p>
+            <p>No transactions found</p>
             {% endif %}
         </section>
     </main>
 </body>
+
 </html>
