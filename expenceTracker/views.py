@@ -4,6 +4,8 @@ from . models import Transactions
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
+from dateutil.relativedelta import relativedelta
 # Create your views here.
 def sign_in(request):
     if request.method == "POST":
@@ -97,3 +99,38 @@ def delete_form(request, id):
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
     return render(request, 'home-page.html', {'home':homepage})
+
+def filter_items(request):
+    category = request.GET.get('all_category')
+    date_filter = request.GET.get('all_month')
+    transactions = Transactions.objects.all()
+
+    if category and category != 'All Category':
+        transactions = Transactions.objects.filter(category=category)    
+
+    if date_filter == 'All Dates':
+        today = now()
+        transactions = Transactions.objects.filter(date__month = today.month, date__year = today.year)
+
+    elif date_filter == 'This Month':
+        today = now()
+        transactions = Transactions.objects.filter(date__month = today.month, date__year=today.year)
+
+    elif date_filter == 'Last 3 Month':
+        three_months_ago = now() - relativedelta(months=3)
+        transactions = transactions.filter(date__gte = three_months_ago)
+
+    elif date_filter == 'This Year':
+        this_year = now().year
+        transactions = Transactions.objects.filter(date__year = this_year)
+
+    elif date_filter == 'Last Month':
+        last_month = now() - relativedelta(months=1)
+        transactions = Transactions.objects.filter(date__month = last_month.month, date__year = last_month.year)
+    else:
+        messages.error(request, "There is no transactions")
+
+    return render(request, 'home-page.html', {'transactions':transactions})
+
+    # else:
+    #     print(transactions)
