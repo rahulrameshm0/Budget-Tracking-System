@@ -92,3 +92,12 @@ def add_transactions(request):
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
     return render(request, 'home-page.html', {'home':homepage})
+
+def filter_items(request):
+    category = request.GET.get('all_category')
+    if category and category != 'All Category':
+        transactions = Transactions.objects.filter(category=category)
+    else:
+        transactions = Transactions.objects.all()
+    
+    return render(request, 'home-page.html', {'transactions':transactions})

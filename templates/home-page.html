@@ -6,6 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <!-- Ionic Icons -->
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 </head>
 
 <body>
@@ -86,42 +92,42 @@
             <div class="transaction-lists">
                 <h2>Recent Transactions</h2>
                 <span>
-                    <select name="all-category" id="all-category">
-                        <option value="all-catogery">All Category</option>
-                        <option value="Food & Dining">Food & Dining</option>
-                        <option value="Transprotation">Transprotation</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="bills & utilities">bills & utilities</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="salary">salary</option>
-                        <option value="freelance">freelance</option>
-                        <option value="Investment">Investment</option>
-                    </select>
+                    <form action="{% url 'filter' %}" method="GET">
+                        <select name="all_category" id="all_category" onchange="this.form.submit()">
+                            <option value="All Catogery" {% if request.GET.all_category == 'All Category' %}selected{% endif %}>All Category</option>
+                            <option value="Food & Dining" {% if request.GET.all_category == 'Food & Dining' %}selected{% endif %}>Food & Dining</option>
+                            <option value="Transprotation" {% if request.GET.all_category == 'Transportation' %}selected{% endif %}>Transprotation</option>
+                            <option value="Shopping" {% if request.GET.all_category == 'Shopping' %}selected{% endif %}>Shopping</option>
+                            <option value="Entertainment" {% if request.GET.all_category == 'Entertinment' %}selected{% endif %}>Entertainment</option>
+                            <option value="bills & utilities" {% if request.GET.all_category == 'Bills & Utilities' %}selected{% endif %}>Bills & Utilities</option>
+                            <option value="Healthcare" {% if request.GET.all_category == 'Healthcare' %}selected{% endif %}>Healthcare</option>
+                            <option value="salary" {% if request.GET.all_category == 'Salary' %}selected{% endif %}>Salary</option>
+                            <option value="freelance" {% if request.GET.all_category == 'Freelance' %}selected{% endif %}>Freelance</option>
+                            <option value="Investment" {% if request.GET.all_category == 'Investment' %}selected{% endif %}>Investment</option>
+                        </select>
+                    </form>
                 </span>
                 <span>
-                    <select name="this-month" id="this-month">
-                        <option value="This Month">This Month</option>
-                        <option value="Last Month">Last Month</option>
-                        <option value="Last 3 Months">Last 3 Months</option>
-                        <option value="This Year">This Year</option>
-                    </select>
+                    <form action="" method="POST">
+                        <select name="this-month" id="this-month">
+                            <option value="This Month">This Month</option>
+                            <option value="Last Month">Last Month</option>
+                            <option value="Last 3 Months">Last 3 Months</option>
+                            <option value="This Year">This Year</option>
+                        </select>
+                    </form>
                 </span>
             </div>
 
-            {% if home %}
-            {% for i in home %}
             <div class="transaction-item">
-                <h3>{{i.title}}</h3>
-                <span>{{i.category}}</span>
-                <span>{{i.amount}}</span>
-                <a href="{% url 'edit' i.id %}">Edit</a>
-                <p>{{i.date}}</p>
+                {% for transaction in transactions %}
+                    <h3>{{transaction.title}}</h3>
+                    <span>{{transaction.category}}</span>
+                    <span>{{transaction.date}}</span>
+                    {% empty %}
+                    <p>There is no trasaction found for the category</p>
+                    {% endfor %}
             </div>
-            {% endfor %}
-            {% else %}
-            <p>No transactions found</p>
-            {% endif %}
         </section>
     </main>
 </body>
