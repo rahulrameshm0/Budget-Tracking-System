@@ -109,11 +109,11 @@
                 <span>
                     <form action="{% url 'filter' %}" method="GET">
                         <select name="all_month" id="all_dates" onchange="this.form.submit()">
-                            <option value="All Dates" {% if request.GET.all_month == 'All Dates' %}selected{% endif %}>All Month</option>
+                            <option value="All Month" {% if request.GET.all_month == 'All Month' %}selected{% endif %}>All Month</option>
                             <option value="This Year" {% if request.GET.all_month == 'This Year' %}selected{% endif %}>This Year</option>
                             <option value="This Month" {% if request.GET.all_month == 'This Month' %}selected{% endif %}>This Month</option>
                             <option value="Last Month" {% if request.GET.all_month == 'Last Month' %}selected{% endif %}>Last Month</option>
-                            <option value="Last 3 Months" {% if request.GET.all_month == 'Last 3 Month' %}selected{% endif %}>Last 3 Months</option>
+                            <option value="Last 3 Months" {% if request.GET.all_month == 'Last 3 Months' %}selected{% endif %}>Last 3 Months</option>
                         </select>
                     </form>
                 </span>

@@ -111,9 +111,9 @@ def filter_items(request):
         today = now()
         transactions = Transactions.objects.filter(date__month = today.month, date__year=today.year)
 
-    elif date_filter == 'Last 3 Month':
+    elif date_filter == 'Last 3 Months':
         three_months_ago = now() - relativedelta(months=3)
-        transactions = transactions.filter(date__gte = three_months_ago)
+        transactions = Transactions.objects.filter(date__gte = three_months_ago)
 
     elif date_filter == 'This Year':
         this_year = now().year
