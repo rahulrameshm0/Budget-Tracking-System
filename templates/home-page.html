@@ -11,7 +11,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 </head>
 
 <body>
@@ -94,26 +93,27 @@
                 <span>
                     <form action="{% url 'filter' %}" method="GET">
                         <select name="all_category" id="all_category" onchange="this.form.submit()">
-                            <option value="All Catogery" {% if request.GET.all_category == 'All Category' %}selected{% endif %}>All Category</option>
+                            <option value="All Category" {% if request.GET.all_category == 'All Category' %}selected{% endif %}>All Category</option>
                             <option value="Food & Dining" {% if request.GET.all_category == 'Food & Dining' %}selected{% endif %}>Food & Dining</option>
-                            <option value="Transprotation" {% if request.GET.all_category == 'Transportation' %}selected{% endif %}>Transprotation</option>
+                            <option value="Transportation" {% if request.GET.all_category == 'Transportation' %}selected{% endif %}>Transportation</option>
                             <option value="Shopping" {% if request.GET.all_category == 'Shopping' %}selected{% endif %}>Shopping</option>
-                            <option value="Entertainment" {% if request.GET.all_category == 'Entertinment' %}selected{% endif %}>Entertainment</option>
-                            <option value="bills & utilities" {% if request.GET.all_category == 'Bills & Utilities' %}selected{% endif %}>Bills & Utilities</option>
+                            <option value="Entertainment" {% if request.GET.all_category == 'Entertainment' %}selected{% endif %}>Entertainment</option>
+                            <option value="Bills & Utilities" {% if request.GET.all_category == 'Bills & Utilities' %}selected{% endif %}>Bills & Utilities</option>
                             <option value="Healthcare" {% if request.GET.all_category == 'Healthcare' %}selected{% endif %}>Healthcare</option>
-                            <option value="salary" {% if request.GET.all_category == 'Salary' %}selected{% endif %}>Salary</option>
-                            <option value="freelance" {% if request.GET.all_category == 'Freelance' %}selected{% endif %}>Freelance</option>
+                            <option value="Salary" {% if request.GET.all_category == 'Salary' %}selected{% endif %}>Salary</option>
+                            <option value="Freelance" {% if request.GET.all_category == 'Freelance' %}selected{% endif %}>Freelance</option>
                             <option value="Investment" {% if request.GET.all_category == 'Investment' %}selected{% endif %}>Investment</option>
                         </select>
                     </form>
                 </span>
                 <span>
-                    <form action="" method="POST">
-                        <select name="this-month" id="this-month">
-                            <option value="This Month">This Month</option>
-                            <option value="Last Month">Last Month</option>
-                            <option value="Last 3 Months">Last 3 Months</option>
-                            <option value="This Year">This Year</option>
+                    <form action="{% url 'filter' %}" method="GET">
+                        <select name="all_month" id="all_dates" onchange="this.form.submit()">
+                            <option value="All Dates" {% if request.GET.all_month == 'All Dates' %}selected{% endif %}>All Month</option>
+                            <option value="This Year" {% if request.GET.all_month == 'This Year' %}selected{% endif %}>This Year</option>
+                            <option value="This Month" {% if request.GET.all_month == 'This Month' %}selected{% endif %}>This Month</option>
+                            <option value="Last Month" {% if request.GET.all_month == 'Last Month' %}selected{% endif %}>Last Month</option>
+                            <option value="Last 3 Months" {% if request.GET.all_month == 'Last 3 Month' %}selected{% endif %}>Last 3 Months</option>
                         </select>
                     </form>
                 </span>
@@ -124,6 +124,8 @@
                     <h3>{{transaction.title}}</h3>
                     <span>{{transaction.category}}</span>
                     <span>{{transaction.date}}</span>
+                    <a href="{% url 'edit' transaction.id %}"><ion-icon name="create-outline"></ion-icon></a>
+                    <h4>${{transaction.amount}}</h4>
                     {% empty %}
                     <p>There is no trasaction found for the category</p>
                     {% endfor %}
