@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Transactions</title>
 </head>
+
 <body>
     <div class="edit">
         <div class="transations">
@@ -12,14 +14,19 @@
             {% if edit_transaction %}
             <form action="" method="POST">
                 {% csrf_token %}
-                <input type="text" name="title" id="transactions" placeholder="Title" required value="{{edit_transaction.title}}">
-                <input type="number" name="amount" id="amount" placeholder="Amount" required value="{{edit_transaction.amount}}">
-                <input type="date" name="date" id="date" placeholder="Date" required value="{{edit_transaction.date|date:'Y-m-d'}}">
-                <input type="text" name="description" id="description" placeholder="Description" required value="{{edit_transaction.description}}">
+                <input type="text" name="title" id="transactions" placeholder="Title" required
+                    value="{{edit_transaction.title}}">
+                <input type="number" name="amount" id="amount" placeholder="Amount" required
+                    value="{{edit_transaction.amount}}">
+                <input type="date" name="date" id="date" placeholder="Date" required
+                    value="{{edit_transaction.date|date:'Y-m-d'}}">
+                <input type="text" name="description" id="description" placeholder="Description" required
+                    value="{{edit_transaction.description}}">
                 <button type="submit">Edit</button>
             </form>
             {% endif %}
         </div>
     </div>
 </body>
+
 </html>
