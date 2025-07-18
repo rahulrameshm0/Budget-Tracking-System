@@ -6,7 +6,7 @@ A full-stack personal finance tracker built with **Django**, allowing users to e
 
 ## 📌 Table of Contents
 
-- [📸 Screenshots](#-screenshots)
+
 - [✨ Features](#-features)
 - [🛠️ Tech Stack](#-tech-stack)
 - [🚀 Getting Started](#-getting-started)
@@ -14,17 +14,6 @@ A full-stack personal finance tracker built with **Django**, allowing users to e
 - [👤 User Profile (Upcoming)](#-user-profile-upcoming)
 - [🎯 Roadmap](#-roadmap)
 - [🙌 Contributing](#-contributing)
-- [📄 License](#-license)
-
----
-
-## 📸 Screenshots
-
-> *(Add screenshots inside a `screenshots/` folder and update the paths below)*
-
-| Home Page             | Transaction Summary        | Add Transaction Form       |
-|-----------------------|----------------------------|----------------------------|
-| ![](screenshots/home.png) | ![](screenshots/summary.png) | ![](screenshots/add_form.png) |
 
 ---
 
