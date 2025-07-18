@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = ['budget-tracker-is0c.onrender.com','localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://budget-tracker-is0c.onrender.com']
 
 # Application definition
 
