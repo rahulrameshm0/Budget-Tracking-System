@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
+    <!-- Ionic Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
     <style>
         /* Reset and Base Styles */
 * {
@@ -56,36 +60,67 @@ nav {
     text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
 }
 
-.user-profile a {
+.user-profile {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5rem;
+}
+
+.user-profile a:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     text-decoration: none;
-    color: #e0e0e0;
-    padding: 0.6rem 1.2rem;
-    border-radius: 50px;
+    color: #ffffff;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.user-profile a:first-child:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.user-profile a:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    text-decoration: none;
+    color: #b0b0b0;
+    border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
 
-.user-profile a:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.user-profile a:last-child:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
 }
 
 .user-profile img {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 2px solid rgba(102, 126, 234, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    object-fit: cover;
 }
 
-.user-profile span {
-    font-weight: 500;
-    font-size: 0.95rem;
+.user-profile ion-icon {
+    font-size: 1rem;
 }
 
 /* Main Layout */
@@ -489,10 +524,6 @@ aside {
     color: #ffffff;
 }
     </style>
-    <!-- Ionic Icons -->
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -500,10 +531,8 @@ aside {
         <div class="navbar">
             <div class="navbar-brand">Budget Tracker</div>
             <div class="user-profile">
-                <a href="#">
-                    <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">
-                    <span>Sarah Johnson</span>
-                </a>
+             <a href="#"> <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">Sarah Johnson</a>
+             <a href="{% url 'sign_out' %}"><ion-icon name="log-out-outline"></ion-icon></a>
             </div>
         </div>
     </nav>
@@ -513,17 +542,17 @@ aside {
             <div class="summary-cards">
                 <div class="card">
                     <h1>total income</h1>
-                    <span class="amount">1</span>
+                    <span class="amount">${{ total_income }}</span>
                 </div>
 
                 <div class="card">
-                    <h1>total expence</h1>
-                    <span class="amount">2</span>
+                    <h1>total expense</h1>
+                    <span class="amount">${{ total_expense }}</span>
                 </div>
 
                 <div class="card">
                     <h1>balance</h1>
-                    <span class="amount">3</span>
+                    <span class="amount">${{ balance }}</span>
                 </div>
             </div>
         </section>
@@ -534,11 +563,11 @@ aside {
                 <form action="{% url 'add' %}" method="POST">
                     {% csrf_token %}
                     <label for="">Title</label>
-                    <input type="text" name="title" id="title" placeholder="title" required>
+                    <input type="text" name="title" id="title" placeholder="Title" required>
                     <label for="">Type</label>
                     <select name="type" id="type">
-                        <option value="Expense">E</option>
-                        <option value="Income">I</option>
+                        <option value="Expense">Expense</option>
+                        <option value="Income">Income</option>
                     </select>
 
                     <label for="">Amount</label>

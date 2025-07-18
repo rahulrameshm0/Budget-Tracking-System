@@ -77,12 +77,14 @@ def add_transactions(request):
             amount = request.POST['amount']
             date = request.POST['date']
             title = request.POST['title']
+            txn_type = request.POST['type']
             new_transaction = Transactions(
                 user = request.user,
                 title = title,
                 category = category,
                 amount = amount,
-                date = date
+                date = date,
+                type=txn_type 
             )
             new_transaction.save()
             return redirect('home')
@@ -93,7 +95,15 @@ def add_transactions(request):
 @login_required(login_url='login')
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
-    return render(request, 'home-page.html', {'home':homepage})
+    total_income = sum(t.amount for t in homepage if t.type == 'Income') 
+    total_expense = sum(t.amount for t in homepage if t.type == 'Expense') 
+    balance = total_income - total_expense
+
+    return render(request, 'home-page.html', {'home':homepage,
+                                               'total_income':total_income,
+                                                'total_expense':total_expense,
+                                                  'balance':balance})
+
 
 def filter_items(request):
     category = request.GET.get('all_category')
@@ -126,6 +136,3 @@ def filter_items(request):
         messages.error(request, "There is no transactions")
 
     return render(request, 'home-page.html', {'transactions':transactions})
-
-    # else:
-    #     print(transactions)

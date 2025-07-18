@@ -10,9 +10,14 @@ class Account(models.Model):
     confirm_password = models.CharField(max_length=150)
 
 class Transactions(models.Model):
+    TRANSACTION_TYPES = (('Income','Income'),
+                        ('Expense','Expense')
+                        )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=150, default='untitle')
     category = models.CharField(max_length=150)
     amount = models.FloatField()
     date = models.DateField()
     description = models.TextField(max_length=150, default='No description')
+    type = models.CharField(max_length=10, choices=TRANSACTION_TYPES, default='Expense')

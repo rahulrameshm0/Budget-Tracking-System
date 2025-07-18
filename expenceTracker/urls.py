@@ -7,5 +7,6 @@ urlpatterns = [
     path('edit/<int:id>/',views.edit_transactions, name='edit'),
     path('home/',views.home_page, name='home'),
     path('add/', views.add_transactions, name='add'),
-    path('filter/',views.filter_items , name='filter')
+    path('filter/',views.filter_items , name='filter'),
+ 
 ]
