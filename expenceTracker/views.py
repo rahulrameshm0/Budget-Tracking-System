@@ -100,14 +100,23 @@ def delete_form(request, id):
 @login_required(login_url='login')
 def home_page(request):
     homepage = Transactions.objects.filter(user = request.user)
-    total_income = sum(t.amount for t in homepage if t.type == 'Income') 
-    total_expense = sum(t.amount for t in homepage if t.type == 'Expense') 
+    total_income = 0 
+    total_expense = 0
+    for t in homepage:
+        if t.type == "Income":
+            total_income += t.amount
+        elif t.type == "Expense":
+            if (total_expense + t.amount > total_income):
+                messages.error(request, "You don't have enough money!")
+                break
+            else:
+                total_expense += t.amount
+  
     balance = total_income - total_expense
-
     return render(request, 'home-page.html', {'transactions':homepage,
-                                               'total_income':total_income,
-                                                'total_expense':total_expense,
-                                                  'balance':balance})
+                                                'total_income':total_income,
+                                                    'total_expense':total_expense,
+                                                    'balance':balance})
 
 
 def filter_items(request):
