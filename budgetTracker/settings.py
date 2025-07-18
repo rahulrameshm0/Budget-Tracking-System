@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'budgetTracker.wsgi.application'
 
 DATABASES = {
    'default':dj_database_url.config(
-       default = 'postgres://postgres:724850@localhost:5432/budget_tracker',
+       default = os.environ.get('DATABASE_URL'),
        conn_max_age = 600,
        ssl_require = False
    )
