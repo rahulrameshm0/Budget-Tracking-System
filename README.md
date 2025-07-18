@@ -186,17 +186,13 @@ Push to your branch: git push origin feature-name
 
 Submit a Pull Request
 
-
-📬 Contact
+## 📬 Contact
 If you have any questions or feedback, feel free to reach out.
 
 GitHub: your-username
 
 Email: your.email@example.com
 
-yaml
-Copy
-Edit
 
 ---
 
@@ -204,15 +200,3 @@ Edit
 - Add a section for **deployment on Render or Vercel**?
 - Generate a `requirements.txt` template?
 - Help build the **user profile system**?
-
-Let me know!
-
-
-
-
-
-
-
-
-Ask ChatGPT
-
