@@ -178,14 +178,6 @@ Submit a Pull Request
 ## 📬 Contact
 If you have any questions or feedback, feel free to reach out.
 
-GitHub: your-username
-
-Email: your.email@example.com
-
-
+Email: rahulramesh98@gmail.com
 ---
 
-### ✅ Want me to:
-- Add a section for **deployment on Render or Vercel**?
-- Generate a `requirements.txt` template?
-- Help build the **user profile system**?
