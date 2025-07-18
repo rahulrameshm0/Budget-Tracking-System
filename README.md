@@ -68,7 +68,7 @@ A full-stack personal finance tracker built with **Django**, allowing users to e
 |------------------|------------------------|
 | Backend          | Python, Django         |
 | Frontend         | HTML5, CSS3, JavaScript |
-| Database         | SQLite (Django default)|
+| Database         | PostgreSQL|
 | Styling (Optional)| TailwindCSS / Bootstrap |
 | Templates        | Django Template Engine |
 | Version Control  | Git & GitHub           |
