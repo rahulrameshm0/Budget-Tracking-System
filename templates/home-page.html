@@ -8,9 +8,7 @@
     <title>Home</title>
 
     <!-- Ionic Icons -->
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -18,10 +16,8 @@
         <div class="navbar">
             <div class="navbar-brand">Budget Tracker</div>
             <div class="user-profile">
-                <a href="#">
-                    <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">
-                    <span>Sarah Johnson</span>
-                </a>
+             <a href="#"> <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">Sarah Johnson</a>
+             <a href="{% url 'sign_out' %}"><ion-icon name="log-out-outline"></ion-icon></a>
             </div>
         </div>
     </nav>
@@ -31,17 +27,17 @@
             <div class="summary-cards">
                 <div class="card">
                     <h1>total income</h1>
-                    <span class="amount">1</span>
+                    <span class="amount">${{ total_income }}</span>
                 </div>
 
                 <div class="card">
-                    <h1>total expence</h1>
-                    <span class="amount">2</span>
+                    <h1>total expense</h1>
+                    <span class="amount">${{ total_expense }}</span>
                 </div>
 
                 <div class="card">
                     <h1>balance</h1>
-                    <span class="amount">3</span>
+                    <span class="amount">${{ balance }}</span>
                 </div>
             </div>
         </section>
@@ -52,11 +48,11 @@
                 <form action="{% url 'add' %}" method="POST">
                     {% csrf_token %}
                     <label for="">Title</label>
-                    <input type="text" name="title" id="title" placeholder="title" required>
+                    <input type="text" name="title" id="title" placeholder="Title" required>
                     <label for="">Type</label>
                     <select name="type" id="type">
-                        <option value="Expense">E</option>
-                        <option value="Income">I</option>
+                        <option value="Expense">Expense</option>
+                        <option value="Income">Income</option>
                     </select>
 
                     <label for="">Amount</label>
@@ -109,31 +105,15 @@
                 <span>
                     <form action="{% url 'filter' %}" method="GET">
                         <select name="all_month" id="all_dates" onchange="this.form.submit()">
-                            <option value="All Dates" {% if request.GET.all_month == 'All Dates' %}selected{% endif %}>All Month</option>
+                            <option value="All Month" {% if request.GET.all_month == 'All Month' %}selected{% endif %}>All Month</option>
                             <option value="This Year" {% if request.GET.all_month == 'This Year' %}selected{% endif %}>This Year</option>
                             <option value="This Month" {% if request.GET.all_month == 'This Month' %}selected{% endif %}>This Month</option>
                             <option value="Last Month" {% if request.GET.all_month == 'Last Month' %}selected{% endif %}>Last Month</option>
-                            <option value="Last 3 Months" {% if request.GET.all_month == 'Last 3 Month' %}selected{% endif %}>Last 3 Months</option>
+                            <option value="Last 3 Months" {% if request.GET.all_month == 'Last 3 Months' %}selected{% endif %}>Last 3 Months</option>
                         </select>
                     </form>
                 </span>
             </div>
-
-
-            {% if home %}
-                {% for i in home %}
-                <div class="transaction-item">
-                    <h3>{{i.title}}</h3>
-                    <span>{{i.category}}</span>
-                    <span>{{i.amount}}</span>
-                    <a href="{% url 'edit' i.id %}">Edit</a>
-                    <a href="{% url 'delete' i.id %}">Delete</a>
-                    <p>{{i.date}}</p>
-                </div>
-                    {% endfor %}
-            {% else %}
-            <p>No transactions found</p>
-            {% endif %}
 
             <div class="transaction-item">
                 {% for transaction in transactions %}

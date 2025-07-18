@@ -9,4 +9,5 @@ urlpatterns = [
     path('add/', views.add_transactions, name='add'),
     path('delete<int:id>/', views.delete_form, name='delete'),
     path('filter/',views.filter_items , name='filter')
+
 ]
