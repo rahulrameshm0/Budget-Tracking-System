@@ -90,7 +90,129 @@ python --version
 ```bash
   git clone https://github.com/your-username/Budget-Tracking-System.git
   cd Budget-Tracking-System
-
 ```
 
+## Install Dependencies
+
+```bash
+  pip install -r requirements.txt
+  Apply Migrations
+```
+## Apply Migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## Create Superuser (for admin access)
+
+```bash
+  python manage.py createsuperuser
+  Run the Development Server
+```
+## Run the Development Server
+```bash
+  python manage.py runserver
+  Visit the App
+  Go to: http://127.0.0.1:8000
+```
+
+## 📂 Project Structure
+
+```bash
+budget-tracking-system/
+│
+├── budgetapp/               
+│   ├── migrations/
+│   ├── templates/
+│   ├── static/
+│   ├── views.py
+│   ├── models.py
+│   └── forms.py
+│
+├── budgetproject/           
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+├── manage.py
+├── db.sqlite3
+├── requirements.txt
+└── README.md
+```
+## 👤 User Profile (Upcoming)
+Planned Features:
+A dedicated profile page accessible via the navbar.
+
+Display current user details (email, username).
+
+Option to:
+
+Change username/password
+
+Upload/change profile picture
+
+Set monthly budget goals
+
+View historical spending stats
+
+Profile view and edit forms will use Django’s UserChangeForm and UserProfile model (custom extension).
+
+## 🎯 Roadmap
+ Income/Expense CRUD
+
+ Summary dashboard
+
+ User authentication
+
+ User profile page
+
+ Budget goal tracking
+
+ Graphical reports (chart.js or Plotly)
+
+ Export to CSV/PDF
+
+## 🙌 Contributing
+Want to make this better?
+
+Fork the repo
+
+Create your branch: git checkout -b feature-name
+
+Commit changes: git commit -m 'Added feature'
+
+Push to your branch: git push origin feature-name
+
+Submit a Pull Request
+
+
+📬 Contact
+If you have any questions or feedback, feel free to reach out.
+
+GitHub: your-username
+
+Email: your.email@example.com
+
+yaml
+Copy
+Edit
+
+---
+
+### ✅ Want me to:
+- Add a section for **deployment on Render or Vercel**?
+- Generate a `requirements.txt` template?
+- Help build the **user profile system**?
+
+Let me know!
+
+
+
+
+
+
+
+
+Ask ChatGPT
 
