@@ -83,3 +83,8 @@ Ensure you have Python 3.8+ installed.
 
 ```bash
 python --version
+
+
+git clone https://github.com/your-username/Budget-Tracking-System.git
+cd Budget-Tracking-System
+
