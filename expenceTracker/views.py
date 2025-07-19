@@ -99,27 +99,32 @@ def delete_form(request, id):
 
 @login_required(login_url='login')
 def home_page(request):
-    homepage = Transactions.objects.filter(user = request.user)
-    valid_transaction = []
-    total_income = 0 
+    homepage = Transactions.objects.filter(user=request.user).order_by('date')
+    valid_transactions = []
+    total_income = 0
     total_expense = 0
+
     for t in homepage:
         if t.type == "Income":
             total_income += t.amount
+            valid_transactions.append(t)
         elif t.type == "Expense":
-            if (total_expense + t.amount <= total_income):
+            if total_expense + t.amount <= total_income:
                 total_expense += t.amount
-                valid_transaction.append(t)
-                # total_expense += t.amount
+                valid_transactions.append(t)
+            # Else: skip this expense
 
-  
     balance = total_income - total_expense
-    return render(request, 'home-page.html', {'transactions':valid_transaction,
-                                                'total_income':total_income,
-                                                    'total_expense':total_expense,
-                                                    'balance':balance})
+
+    return render(request, 'home-page.html', {
+        'transactions': valid_transactions,
+        'total_income': total_income,
+        'total_expense': total_expense,
+        'balance': balance
+    })
 
 
+@login_required(login_url='login')
 def filter_items(request):
     category = request.GET.get('all_category')
     date_filter = request.GET.get('all_month')
