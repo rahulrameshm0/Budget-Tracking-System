@@ -470,7 +470,9 @@ aside h2 {
         <div class="navbar">
             <div class="navbar-brand">Budget Tracker</div>
             <div class="user-profile">
-             <a href="#"> <img src="{% static 'images/profile.webp' %}" alt="Sarah Johnson">Sarah Johnson</a>
+            {% if user.is_authenticated %}
+            <a href="#"><img src="{% static 'images/profile.webp' %}" alt="username">{{ user.username }}</a>
+            {% endif %} 
              <a href="{% url 'sign_out' %}"><ion-icon name="log-out-outline"></ion-icon></a>
             </div>
         </div>
