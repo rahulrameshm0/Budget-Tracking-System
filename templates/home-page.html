@@ -154,15 +154,16 @@ main {
 }
 
 /* Messages */
-.summary-cards p {
+/* .messages {
+    content: "There is no enough money";
     grid-column: 1 / -1;
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
+    background: rgba(245, 47, 8, 0.1);
+    color: #b50303;
     padding: 1rem;
     border-radius: 10px;
-    border-left: 4px solid #10b981;
+    border-left: 4px solid #c80c0c;
     margin-top: 1rem;
-}
+} */
 
 /* Aside - Add Transaction */
 aside {
@@ -489,11 +490,13 @@ aside h2 {
                     <h1>balance</h1>
                     <span class="amount">${{ balance }}</span>
                 </div>
-                {% if messages %}
-                  {% for message in messages %}
-                    <p>{{ message }}</p>
-                  {% endfor %}
-                {% endif %}
+                 <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
             </div>
         </section>
 
