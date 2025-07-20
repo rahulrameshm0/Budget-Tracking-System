@@ -154,16 +154,29 @@ main {
 }
 
 /* Messages */
-/* .messages {
-    content: "There is no enough money";
-    grid-column: 1 / -1;
-    background: rgba(245, 47, 8, 0.1);
-    color: #b50303;
-    padding: 1rem;
-    border-radius: 10px;
-    border-left: 4px solid #c80c0c;
-    margin-top: 1rem;
-} */
+.toast-message {
+  background-color: #444;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.4s ease, fadeOut 0.5s ease 3.5s forwards;
+}
+
+.toast-message.success { background-color: #2ecc71; }
+.toast-message.error { background-color: #e74c3c; }
+.toast-message.info { background-color: #3498db; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-10px); }
+}
 
 /* Aside - Add Transaction */
 aside {
@@ -495,13 +508,6 @@ aside h2 {
                     <h1>balance</h1>
                     <span class="amount">${{ balance }}</span>
                 </div>
-                 <ul class="messages">
-        {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                {{ message }}
-            </li>
-        {% endfor %}
-    </ul>
             </div>
         </section>
 
@@ -590,8 +596,36 @@ aside h2 {
                     <p>There is no trasaction found for the category</p>
                     {% endfor %}
             </div>
-
         </section>
+
+        <!-- Hidden message container for JS to pick up -->
+<div id="django-messages" style="display: none;">
+  {% for message in messages %}
+    <div class="django-message" data-tag="{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+
+<!-- Toast container -->
+<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
     </main>
+
+ <script>
+  const djangoMessages = document.querySelectorAll('#django-messages .django-message');
+  const toastContainer = document.getElementById('toast-container');
+
+  djangoMessages.forEach((msg) => {
+    const toast = document.createElement('div');
+    toast.className = 'toast-message ' + msg.dataset.tag;
+    toast.textContent = msg.textContent;
+
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+      toast.remove();
+    }, 4000);
+  });
+</script>
+
 </body>
 </html>

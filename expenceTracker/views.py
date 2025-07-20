@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from dateutil.relativedelta import relativedelta
+from decimal import Decimal
 # Create your views here.
 def sign_in(request):
     if request.method == "POST":
@@ -72,9 +73,29 @@ def edit_transactions(request, id):
 
 def add_transactions(request):
     if request.method == "POST":
+        txn_type = request.POST.get('type')
+        amount_str = request.POST.get('amount')
+
+
+        try:
+            amount = Decimal(amount_str)
+        except:
+            messages.error(request, 'Please enter a valid amount.')
+            return redirect('home')
+        
+        if txn_type == 'Expense':
+            transactions = Transactions.objects.filter(user=request.user)
+            total_income = sum(t.amount for t in transactions if t.type == 'Income')
+            total_expense = sum(t.amount for t in transactions if t.type == 'Expense')
+            current_balance = total_income - total_expense
+
+            if amount > current_balance:
+                messages.error(request, "You don't have enough money for this expense!")
+                return redirect('home')
+
         try:
             category =  request.POST['category']
-            amount = request.POST['amount']
+            amount = float(request.POST['amount'])
             date = request.POST['date']
             title = request.POST['title']
             txn_type = request.POST['type']
@@ -87,6 +108,7 @@ def add_transactions(request):
                 type=txn_type 
             )
             new_transaction.save()
+            messages.success(request, f"{txn_type} added successfully!")
             return redirect('home')
         except (ValueError, KeyError):
             messages.error(request, 'please enter valid date format')
@@ -95,43 +117,32 @@ def add_transactions(request):
 def delete_form(request, id):
     delete_item = Transactions.objects.get(id=id)
     delete_item.delete()
+    messages.success(request, 'Item deleted succesfully')
     return redirect('home')
 
 @login_required(login_url='login')
 def home_page(request):
-    homepage = Transactions.objects.filter(user=request.user).order_by('date')
-    valid_transactions = []
-    total_income = 0
-    total_expense = 0
+    all_transaction = Transactions.objects.filter(user=request.user)
 
-    for t in homepage:
-        if t.type == "Income":
-            total_income += t.amount
-            valid_transactions.append(t)
-        elif t.type == "Expense":
-            if total_expense + t.amount <= total_income:
-                total_expense += t.amount
-                valid_transactions.append(t)
-            # Else: skip this expense
-
+    total_income = sum(t.amount for t in all_transaction if t.type == "Income")
+    total_expense = sum(t.amount for t in all_transaction if t.type == "Expense")
     balance = total_income - total_expense
 
     return render(request, 'home-page.html', {
-        'transactions': valid_transactions,
+        'transactions':all_transaction,
         'total_income': total_income,
         'total_expense': total_expense,
         'balance': balance
     })
 
-
 @login_required(login_url='login')
 def filter_items(request):
     category = request.GET.get('all_category')
     date_filter = request.GET.get('all_month')
-    transactions = Transactions.objects.all()
+    transactions = Transactions.objects.filter(user=request.user)
 
     if category and category != 'All Category':
-        transactions = Transactions.objects.filter(category=category)    
+        transactions = Transactions.objects.filter(category=category, user=request.user)    
 
     if date_filter == 'All Dates':
         today = now()
