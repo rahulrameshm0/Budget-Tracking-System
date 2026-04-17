@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-2jb7@60)ata6#29@s+60=1*a3cds7gzof2awy#*gbzb_boaxfy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 ALLOWED_HOSTS = ['budget-tracker-is0c.onrender.com','localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://budget-tracker-is0c.onrender.com']
 
