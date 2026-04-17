@@ -79,9 +79,13 @@ WSGI_APPLICATION = 'budgetTracker.wsgi.application'
 DATABASES = {
    'default':dj_database_url.config(
         default='postgres://budget_tracker_3bj2_user:qQQQETVe4TDbxGXlDHldnwVoBeY8EYK4@dpg-d1tapbemcj7s73d5i40g-a.oregon-postgres.render.com:5432/budget_tracker_3bj2',
-        conn_max_age = 600,
+        conn_max_age = 0,
         ssl_require = True
    )
+}
+
+DATABASES['default']['OPTIONS'] = {
+    'sslmode': 'require'
 }
 
 # Password validation
